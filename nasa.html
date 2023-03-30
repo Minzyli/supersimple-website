@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>NASA API Example</title>
+  <style>
+    body {
+      background-color: #ADD8E6; /* light blue */
+    }
+  </style>
+  <script>
+    function getAPOD() {
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "https://api.nasa.gov/planetary/apod?api_key=93baoOsxutUEc5p0lBB5oDGtVNCA83CEihMFFhOQ", true);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          var data = JSON.parse(xhr.responseText);
+          console.log(data);
+          
+          var apodDiv = document.getElementById("apod");
+          apodDiv.innerHTML = "<h1>" + data.title + "</h1><br>" +
+            "<img src='" + data.hdurl + "' alt='" + data.title + "'><br>" +
+            "<p>" + data.explanation + "</p>";
+        }
+      };
+      xhr.send();
+    }
+
+    window.onload = getAPOD;
+  </script>
+</head>
+<body>
+  <div id="apod"></div>
+</body>
+</html>
